@@ -8,6 +8,6 @@
 </head>
 <body>
 	<a href="member_update_form.jsp">사원 수정</a>
-	<a href="member_delete_form.jsp">사원 탈퇴</a>
+	<a href="member_delete_form.jsp">사원 삭제</a>
 </body>
 </html>

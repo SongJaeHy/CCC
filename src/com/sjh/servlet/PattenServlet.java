@@ -3,6 +3,7 @@ package com.sjh.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import com.sjh.service.IMemberService;
 import com.sjh.service.MemberLoginService;
+import com.sjh.service.MemberUpdateService;
+
 
 
 
@@ -87,11 +90,33 @@ public class PattenServlet extends HttpServlet {
 		
 		
 		if(uri.equals("/ccs/join.do")) {
-			sv = new MemberLoginService();
+			
+		}else if(uri.equals("/ccs/update.do")){
+			
+		}else if(uri.equals("/ccs/updateok.do")) {
+			// 1. 서비스 객체 생성
+			sv = new MemberUpdateService();
+			// 2. 서비스 메서드 생성
 			sv.execute(request, response);
-			ui = "member/member_login_form.jsp";
-	}else {
-		System.out.println("잘못된 패턴입니다.");
+			// 3. 결과
+			String mId = request.getParameter("mId");
+			ui = "/memberdetail.do?mId=" + mId;
+			
+		}else if(uri.equals("/ccs/delete.do")) {
+			
+		}else if(uri.equals("/ccs/memberdetail.do")) {
+			
+			sv.execute(request, response);
+			
+			ui = "/member/member_login_form.jsp";
+		
+		}else {
+			System.out.println("잘못된 패턴입니다.");
 		}
+		
+		
+		
+		RequestDispatcher dp = request.getRequestDispatcher(ui);
+		dp.forward(request, response);
 	}
 }

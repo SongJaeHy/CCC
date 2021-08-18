@@ -4,6 +4,17 @@
 <html>
 <head>
 <style>
+der .h_logo{
+	display: blue;
+	overflow: hidden;
+	width: 231px;
+	height: 44px;
+	margin: 0 auto;
+	background-position-x: -1px;
+	background-position-y: -1px;
+	font-size: 15px;
+	color: transparent;
+}
 der .c_logo:before{
 	content: '\00a1';
 	display : blue;
@@ -19,7 +30,7 @@ der .c_logo:before{
 	<div id = "header"></div>
 	<h1>
 		<a href="https://www.naver.com" class="p c_logo" id="log.naver">
-		<span class="blind">CCS</span>
+		<span class="blian">CCS</span>
 		</a>
 	</h1>
 	

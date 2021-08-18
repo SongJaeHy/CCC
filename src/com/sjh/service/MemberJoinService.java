@@ -1,22 +1,20 @@
 package com.sjh.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hgs.dept.model.DeptVO;
 import com.sjh.model.MembersDAO;
-import com.sjh.model.MembersVO;
 
-public class MemberLoginService implements IMemberService{
+public class MemberJoinService implements IMemberService{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			
-		
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
+		MembersDAO dao = MembersDAO.getinstance();
+		List<DeptVO> deptlist = dao.getDept();
+		request.setAttribute("deptlist", deptlist);
 	}
-	
+
 }

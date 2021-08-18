@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<script>
+
+</script>
 </head>
 <script>
 	function check_pw(){
@@ -46,9 +48,8 @@
 	<table>
 		<tr>
 			<td>아이디:</td>
-			<td><input type="text" name="mid" placeholder="Id" required></td>
-			<td><input type="button" value="중복확인" onclick="openIdChk()"><br/></td>
-		</tr>
+			<td><input type="text" name="mid" placeholder="Id" required onclick = "idcheck()"></td>
+			<td><input type="button" value="중복확인" onclick="idcheck()"><br/></td>
 		<tr>
 			<td>비밀번호:</td>
 			<td><input type="password" name="memPw" id="mpw" onchange="check_pw()"><br/></td>
@@ -80,7 +81,7 @@
 		<tr>
 			<td><input type="submit" value="가입">></td>
 		</tr>
-	<a href="members_join_fail.jsp">회원가입 실패</a>
+	
 	</table>
 	</form>
 </body>
