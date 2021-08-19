@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%
+	String sessionId= (String)session.getAttribute("i_s");
+
+	if(sessionId == null){
+		response.sendRedirect("member_login_ok.jsp");
+	}
+
+%>
 
 <!DOCTYPE html>
 <html>
@@ -12,7 +20,7 @@
 	<form action="member_delete_ok.jsp" method="post">
 	비밀번호를 한 번 더 입력하세요.<br/>
 	삭제 진행 후에는 되돌릴 수 없으니 주의하세요.<br/>
-		<input type="password" name="mpw" placeholder="삭제할 사원 비밀번호"><br/>
+		<input type="password" name="mpw" id="m_pw" placeholder="삭제할 사원 비밀번호"><br/>
 		<input type="submit" value="제출">
 	
 	</form>

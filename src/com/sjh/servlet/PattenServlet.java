@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.sjh.service.IMemberService;
+import com.sjh.service.MemberJoinService;
 import com.sjh.service.MemberLoginService;
 import com.sjh.service.MemberUpdateService;
 
@@ -22,7 +23,7 @@ import com.sjh.service.MemberUpdateService;
 /**
  * Servlet implementation class PattenServlet
  */
-@WebServlet("*.do")
+@WebServlet("*.ccs")
 public class PattenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,21 +32,21 @@ public class PattenServlet extends HttpServlet {
      */
     public PattenServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        System.out.println("패턴자 생성");
     }
 
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
+		System.out.println("패턴자 시작");
 	}
 
 	/**
 	 * @see Servlet#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
+		System.out.println("패턴 소멸");
 	}
 
 	/**
@@ -60,7 +61,7 @@ public class PattenServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 	protected void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -89,18 +90,20 @@ public class PattenServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		
-		if(uri.equals("/ccs/join.do")) {
-			
+		if(uri.equals("/ccs/memberjoin.ccs")) {
+			sv = new MemberJoinService();
+			sv.execute(request, response);
+			ui="/member/member_login_form.jsp";
 		}else if(uri.equals("/ccs/update.do")){
 			
 		}else if(uri.equals("/ccs/updateok.do")) {
 			// 1. 서비스 객체 생성
-			sv = new MemberUpdateService();
+			sv = new MemberLoginService();
 			// 2. 서비스 메서드 생성
 			sv.execute(request, response);
 			// 3. 결과
 			String mId = request.getParameter("mId");
-			ui = "/memberdetail.do?mId=" + mId;
+			ui = "/member/member_login_form.jsp?mId=" + mId;
 			
 		}else if(uri.equals("/ccs/delete.do")) {
 			

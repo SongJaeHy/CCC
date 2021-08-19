@@ -4,20 +4,20 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-/* 	
+
   	// 0. post방식 받아오기 처리
   	response.setCharacterEncoding("utf-8");
 	request.setCharacterEncoding("utf-8");  	
 
   	// 1. 아이디 비밀번호 받아오기
- 	String id = request.getParameter("m_id");
-  	String pw = request.getParameter("m_pw");
+ 	String m_id = request.getParameter("m_id");
+  	String m_pw = request.getParameter("m_pw");
   	
   // if~else문으로 try~catch~finally를 감싸서
   // 세션이 존재할 때는 DB에서 데이터를 가져오는 로직을 생략해주세요.
   	String idSession = (String)session.getAttribute("i_s");
   	if(idSession != null){
-  		id = idSession;
+  		m_id = idSession;
   	} else{
   		// 1. dao 생성
   		MembersDAO dao = MembersDAO.getinstance();
@@ -27,19 +27,19 @@
 		member.setM_Id("m_Id");
 		member.setM_Pw("m_Pw");
 		
-		int loginResultNum = dao.login(member);
+		int loginResultNum = dao.login(m_id, m_pw);
 		
 		if(loginResultNum == 1){
-			session.setAttribute("i_s", id);
-			session.setAttribute("p_s", pw);
+			session.setAttribute("i_s", m_id);
+			session.setAttribute("p_s", m_pw);
 		} else if(loginResultNum == 0){
 			response.sendRedirect("member_login_form.jsp");
 		}
   		
   	}
- */
+ 
 		  
-  
+ 
  %>
 <!DOCTYPE html>
 <html>

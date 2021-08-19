@@ -1,13 +1,34 @@
+<%@page import="com.hgs.dept.model.DeptVO"%>
+<%@page import="com.sjh.model.MembersVO"%>
+<%@page import="com.sjh.model.MembersDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+/*
+	request.setCharacterEncoding("utf-8");
+	response.setCharacterEncoding("utf-8");
+	
+	String m_name = request.getParameter("m_name");
+	String m_id = request.getParameter("m_id");
+	String m_pw = request.getParameter("m_pw");
+	Integer dept_no = (Integer)session.getAttribute("dept_no");
+	String m_phone = request.getParameter("m_phone");
+	String m_email = request.getParameter("m_email");
+	
+	MembersDAO dao = MembersDAO.getinstance();
+	
+	MembersVO member = new MembersVO();
+	DeptVO dept = new DeptVO();
+	
+	dao.joinMember(member, dept);
+	dao.getMemberDept(1);
+	*/
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<script>
-
-</script>
 </head>
 <script>
 	function check_pw(){
@@ -48,7 +69,7 @@
 	<table>
 		<tr>
 			<td>아이디:</td>
-			<td><input type="text" name="mid" placeholder="Id" required onclick = "idcheck()"></td>
+			<td><input type="text" name="id" id="m_id" placeholder="Id" required onclick = "idcheck()"></td>
 			<td><input type="button" value="중복확인" onclick="idcheck()"><br/></td>
 		<tr>
 			<td>비밀번호:</td>
@@ -60,23 +81,23 @@
 		</tr>
 		<tr>
 			<td>이름:</td>
-			<td><input type="text" name="mname" placeholder="이름"><br/></td>
+			<td><input type="text" name="mname"  placeholder="이름"><br/></td>
 		</tr>
 		<tr>
 			<td>사원번호:</td>
-			<td><input type="text" name="mno" placeholder="사번" maxlength=8 required><br/></td>
+			<td><input type="text" name="mno" id="m_no" placeholder="사번" maxlength=8 required><br/></td>
 		</tr>
 		<tr>
 			<td>부서번호:</td>
-			<td><input type="text" name="mdeptno" placeholder="부서명" maxlength=6><br/></td>
+			<td><input type="text" name="mdeptno" id="dept_no" placeholder="부서명" maxlength=6><br/></td>
 		</tr>
 		<tr>
 			<td>핸드폰번호:</td>
-			<td><input type="tel" name="mphone" value="000-0000-0000" maxlength=13><br/></td>
+			<td><input type="tel" name="mphone" id="m_phone" value="000-0000-0000" maxlength=13><br/></td>
 		</tr>
 		<tr>
 			<td>이메일:</td>
-			<td><input type="email" name="memail" placeholder="이메일"><br/></td>
+			<td><input type="email" name="memail" id="m_email" placeholder="이메일"><br/></td>
 		</tr>	
 		<tr>
 			<td><input type="submit" value="가입">></td>

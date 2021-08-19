@@ -52,23 +52,26 @@ public class MembersDAO {
 	// 대다수 입출력은 전부VO를 매개로 진행합니다.
 	
 	
-	public int joinMember(MembersVO member) {
+	public int joinMember(MembersVO member, DeptVO dept) {
 		// members_join.jsp애서 가져온 코드를 이곳에 붙여넣기를 합니다.
 		// DB연동을 위한 Connector 설정
 		// Connection 객체 생성
 		Connection con = null;
 		// 쿼리문 실행을 위한 pstmt 객체 생성
 		PreparedStatement pstmt = null;
-		
+		int updateCount = 0;
 		try {
 			// 커넥션 풀
 			con = ds.getConnection();
 			// 쿼리문
-			String sql = "INSERT INTO member(m_id,m_pw,m_name,dept_no,m_phone,m_eamil)"
+			
+			String sql = "INSERT INTO member(m_id,m_pw, m_name, dept_no,m_phone, m_email)"
 					+ "VALUES(?,?,?,?,?,?)";
 			
 			
 			// 쿼리문 실행 및 나머지 로직
+			
+			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getM_Id());
 			pstmt.setString(2, member.getM_Pw());
@@ -78,6 +81,12 @@ public class MembersDAO {
 			pstmt.setString(6, member.getM_Email());
 	
 			pstmt.executeUpdate();
+			
+			if(updateCount != 0) {
+				System.out.println("회원가입 성공");
+			}else {
+				System.out.println("회원가입 실패");
+			}
 		}catch(Exception e) {
 			System.out.println("에러 : " + e);
 		}finally {
@@ -91,11 +100,12 @@ public class MembersDAO {
 				e.printStackTrace();
 			}
 		}
-		return 1;
+		return updateCount;
+		
 	}// end joinMember
 	
 	// 로그인 로직
-	public int login(MembersVO member) {
+	public int login(String m_id, String m_pw) {
 		// Connection, PreparedStatement 객체 선언
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -104,7 +114,7 @@ public class MembersDAO {
 		MembersVO userinfo = new MembersVO();
 		// 구문 작성
 
-		String sql = "SELECT * FROM member WHERE m_id=?";
+		String sql = "SELECT mpw FROM member WHERE m_id=?";
 		
 		
 		try {
@@ -113,19 +123,14 @@ public class MembersDAO {
 			con = ds.getConnection();
 			
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member.getM_Id());
+			pstmt.setString(1, m_id);
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				if(rs.getString("m_pw").equals(member.getM_Pw())) {
-					userinfo.setM_Name(rs.getString("m_name"));
-					userinfo.setM_No(rs.getInt("m_no"));
-					userinfo.setM_Id(rs.getString("m_id"));
-					userinfo.setDept_no(rs.getInt("dept_no"));
-					userinfo.setM_Phone(rs.getString("m_phone"));
-					userinfo.setM_Email(rs.getString("m_email"));
+				if(rs.getString(1).equals(m_pw)) {
+					return 1;
 				}else {
-				
+					return 0;
 				}
 			}
 		}catch(Exception e) {
@@ -144,7 +149,7 @@ public class MembersDAO {
 			}
 		}
 		 //end login
-		return 0;
+		return -2;
 	}
 	// 사원 수정 로직
 	public int updateMember(MembersVO member) {
@@ -153,7 +158,7 @@ public class MembersDAO {
 		
 		try {
 			con = ds.getConnection();
-			String sql="UPDATE member SET mpw=?, mname=?, memail=? WHERE mid=?";
+			String sql="UPDATE member SET m_pw=?, m_name=?, m_email=? WHERE m_id=?";
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getM_Pw());
@@ -193,7 +198,7 @@ public class MembersDAO {
 		try {
 			if(member.getM_Pw().equals(dpw)) {
 			con = ds.getConnection();
-			String sql="DELETE FROM member WHERE mid=?";
+			String sql="DELETE FROM member WHERE m_id=?";
 		
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getM_Id());
@@ -288,7 +293,7 @@ public class MembersDAO {
 				member.setM_Name(rs.getString("m_name"));
 				member.setM_Phone(rs.getString("m_phone"));
 				member.setM_Email(rs.getString("m_email"));
-				member.setM_No(rs.getInt("m_no"));
+				member.setDept_no(rs.getInt("dept_no"));
 				
 				memberList.add(member);
 			}

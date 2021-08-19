@@ -1,7 +1,7 @@
 package com.sjh.model;
 
 public class MembersVO {
-	private String m_Id;
+	private String m_id;
 	private String m_Pw;
 	private String m_Name;
 	private int m_No;
@@ -15,9 +15,9 @@ public MembersVO() {
 }
 
 
-public MembersVO(String m_Id, String m_Pw, String m_Name, int m_No, int dept_no, String m_Phone, String m_Email) {
+public MembersVO(String m_id, String m_Pw, String m_Name, int m_No, int dept_no, String m_Phone, String m_Email) {
 	super();
-	this.m_Id = m_Id;
+	this.m_id = m_id;
 	this.m_Pw = m_Pw;
 	this.m_Name = m_Name;
 	this.m_No = m_No;
@@ -28,12 +28,12 @@ public MembersVO(String m_Id, String m_Pw, String m_Name, int m_No, int dept_no,
 
 
 public String getM_Id() {
-	return m_Id;
+	return m_id;
 }
 
 
 public void setM_Id(String m_Id) {
-	this.m_Id = m_Id;
+	this.m_id = m_Id;
 }
 
 
@@ -99,7 +99,7 @@ public void setM_Email(String m_Email) {
 
 @Override
 public String toString() {
-	return "MembersVO [m_Id=" + m_Id + ", m_Pw=" + m_Pw + ", m_Name=" + m_Name + ", m_No=" + m_No + ", dept_no="
+	return "MembersVO [m_id=" + m_id + ", m_Pw=" + m_Pw + ", m_Name=" + m_Name + ", m_No=" + m_No + ", dept_no="
 			+ dept_no + ", m_Phone=" + m_Phone + ", m_Email=" + m_Email + "]";
 }
 

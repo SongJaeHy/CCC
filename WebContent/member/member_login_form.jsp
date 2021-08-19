@@ -1,5 +1,28 @@
+<%@page import="com.hgs.dept.model.DeptVO"%>
+<%@page import="com.sjh.model.MembersVO"%>
+<%@page import="com.sjh.model.MembersDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	response.setCharacterEncoding("utf-8");
+	
+	String m_id = request.getParameter("m_id");
+	String m_pw = request.getParameter("m_pw");
+	String m_name = request.getParameter("m_name");
+	Integer dept_no = (Integer)session.getAttribute("dept_no");
+	String m_phone = request.getParameter("m_phone");
+	String m_email = request.getParameter("m_email");
+	
+	MembersDAO dao = MembersDAO.getinstance();
+	
+	MembersVO member = new MembersVO();
+	member.setM_Id(m_id);
+	
+	DeptVO dept = new DeptVO();
+	
+	dao.joinMember(member, dept);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +48,10 @@ der .c_logo:before{
 </style>
 <meta charset="UTF-8">
 <title>로그인</title>
+<script>
+    function submit() {
+        document.abcd.submit();        
+</script>
 </head>
 <body>
 	<div id = "header"></div>
@@ -38,11 +65,11 @@ der .c_logo:before{
 	<table border="1">
 		<tr>
 			<td>아이디</td>
-			<td><input type="text" name="mid" placeholder="Id"></td>
+			<td><input type="text" name="m_id" id="m_id" placeholder="Id"></td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
-			<td><input type="password" name="mpw" maxlength=12 placeholder="Pw"></td>
+			<td><input type="password" name="m_pw" id="m_pw" maxlength=12 placeholder="Pw"></td>
 		</tr>
 		<tr>
 			<td>
