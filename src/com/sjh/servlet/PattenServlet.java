@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.sjh.service.IMemberService;
 import com.sjh.service.MemberDetailService;
 import com.sjh.service.MemberJoinService;
+import com.sjh.service.MemberListService;
 import com.sjh.service.MemberLoginService;
 import com.sjh.service.MemberUpdateService;
 
@@ -120,7 +121,7 @@ public class PattenServlet extends HttpServlet {
 		}else if(uri.equals("/ccs/delete.do")) {
 			
 		}else if(uri.equals("/ccs/memberdetail.do")) {
-			sv = new MemberDetailService();
+			sv = new MemberListService();
 			sv.execute(request, response);
 			
 			ui = "/member/member_get_all.jsp";

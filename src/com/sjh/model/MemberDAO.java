@@ -224,7 +224,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT * FROM member ORDER BY mid DESC";
+		String sql = "SELECT * FROM member ORDER BY m_id DESC";
 		try {
 			
 			con = ds.getConnection();
@@ -263,8 +263,8 @@ public class MemberDAO {
 		}
 		return memberList;
 	} // end getallData
-	public MemberVO getBoardDetail(String m_id) {
-		// bId에 해당하는 글 정보를 가져와서 리턴하도록 로직을 작성해주세요.
+	public MemberVO getBoardDetail(String m_Id) {
+		// 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -275,7 +275,7 @@ public class MemberDAO {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setString(1, m_id);
+			pstmt.setString(1, m_Id);
 			rs = pstmt.executeQuery();
 		
 		if(rs.next()) {

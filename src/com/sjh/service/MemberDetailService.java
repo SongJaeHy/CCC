@@ -31,7 +31,7 @@ public class MemberDetailService implements IMemberService{
 		} else {
 			// url에 묻어온 글 번호를 getParameter를 이용해 얻습니다.
 			String m_Id = request.getParameter("m_id");
-			// DAO를 생성합니다.
+	// DAO를 생성합니다.
 			MemberDAO dao = MemberDAO.getinstance();
 			
 			MemberVO member = dao.getBoardDetail(m_Id);

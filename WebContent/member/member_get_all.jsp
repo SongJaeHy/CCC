@@ -6,6 +6,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
+	request.setCharacterEncoding("utf-8");
+	response.setCharacterEncoding("utf-8");
 	// 로그인하지 않은 사용자 처리
 	String IdSession = (String)session.getAttribute("i_s");
 	if(IdSession == null){
@@ -39,9 +41,9 @@
 		<tbody>
 			<c:forEach var="member" items="<%= memberList%>">
 				<tr>
-					<td>${member.mid }</td>
-					<td>${member.mname }</td>
-					<td>${member.memail }</td>
+					<td>${member.m_Id}</td>
+					<td>${member.m_Pw}</td>
+					<td>${member.m_Email }</td>
 				</tr>
 			</c:forEach>				
 	</tbody>
