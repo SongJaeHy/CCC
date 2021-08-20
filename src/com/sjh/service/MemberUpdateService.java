@@ -3,8 +3,8 @@ package com.sjh.service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sjh.model.MembersDAO;
-import com.sjh.model.MembersVO;
+import com.sjh.model.MemberDAO;
+import com.sjh.model.MemberVO;
 
 public class MemberUpdateService implements IMemberService{
 
@@ -15,15 +15,15 @@ public class MemberUpdateService implements IMemberService{
 		String mEmail = request.getParameter("m_email");
 		String mId = request.getParameter("m_id");
 		
-		MembersVO member = new MembersVO();
+		MemberVO member = new MemberVO();
 		member.setM_Pw(mPw);
 		member.setM_Name(mName);
 		member.setM_Email(mEmail);
 		member.setM_Id(mId);
 		
-		MembersDAO dao = MembersDAO.getinstance();
+		MemberDAO dao = MemberDAO.getinstance();
 		
-		dao.updateMember(member);
+		dao.UpdateMember(member);
 		
 	}
 

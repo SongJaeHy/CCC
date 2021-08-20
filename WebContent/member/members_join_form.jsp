@@ -1,6 +1,5 @@
 <%@page import="com.hgs.dept.model.DeptVO"%>
-<%@page import="com.sjh.model.MembersVO"%>
-<%@page import="com.sjh.model.MembersDAO"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -18,9 +17,9 @@
 	MembersDAO dao = MembersDAO.getinstance();
 	
 	MembersVO member = new MembersVO();
-	DeptVO dept = new DeptVO();
 	
-	dao.joinMember(member, dept);
+	
+	dao.joinMember(member);
 	dao.getMemberDept(1);
 	*/
 %>
@@ -65,42 +64,42 @@
 </script>
 <body>
 	<h1>회원가입 창</h1>
-	<form action="member_login_form.jsp"method="post">
+	<form action="/ccs/memberjoin.do"method="post">
 	<table>
 		<tr>
 			<td>아이디:</td>
-			<td><input type="text" name="id" id="m_id" placeholder="Id" required onclick = "idcheck()"></td>
+			<td><input type="text" name="m_id" id="m_id" placeholder="Id" required onclick = "idcheck()"></td>
 			<td><input type="button" value="중복확인" onclick="idcheck()"><br/></td>
 		<tr>
 			<td>비밀번호:</td>
-			<td><input type="password" name="memPw" id="mpw" onchange="check_pw()"><br/></td>
+			<td><input type="password" name="m_pw" id="mpw" onchange="check_pw()"><br/></td>
 		</tr>
 		<tr>
 			<td>비밀번호 확인:</td>
-			<td><input type="password" name="memPw1" id="repw" onchange="check_pw()">&nbsp;<span id="check"></span><br/></td>
+			<td><input type="password" name="m_pw1" id="repw" onchange="check_pw()">&nbsp;<span id="check"></span><br/></td>
 		</tr>
 		<tr>
 			<td>이름:</td>
-			<td><input type="text" name="mname"  placeholder="이름"><br/></td>
+			<td><input type="text" name="m_name" placeholder="이름"><br/></td>
 		</tr>
 		<tr>
 			<td>사원번호:</td>
-			<td><input type="text" name="mno" id="m_no" placeholder="사번" maxlength=8 required><br/></td>
+			<td><input type="text" name="m_no" id="m_no" placeholder="사번" maxlength=8 required><br/></td>
 		</tr>
 		<tr>
 			<td>부서번호:</td>
-			<td><input type="text" name="mdeptno" id="dept_no" placeholder="부서명" maxlength=6><br/></td>
+			<td><input type="text" name="dept_no" id="dept_no" placeholder="부서명" maxlength=6><br/></td>
 		</tr>
 		<tr>
 			<td>핸드폰번호:</td>
-			<td><input type="tel" name="mphone" id="m_phone" value="000-0000-0000" maxlength=13><br/></td>
+			<td><input type="tel" name="m_phone" id="m_phone" value="000-0000-0000" maxlength=13><br/></td>
 		</tr>
 		<tr>
 			<td>이메일:</td>
-			<td><input type="email" name="memail" id="m_email" placeholder="이메일"><br/></td>
+			<td><input type="email" name="m_email" id="m_email" placeholder="이메일"><br/></td>
 		</tr>	
 		<tr>
-			<td><input type="submit" value="가입">></td>
+			<td><input type="submit" value="가입"></td>
 		</tr>
 	
 	</table>

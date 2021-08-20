@@ -3,8 +3,8 @@ package com.sjh.service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sjh.model.MembersDAO;
-import com.sjh.model.MembersVO;
+import com.sjh.model.MemberDAO;
+import com.sjh.model.MemberVO;
 
 public class MemberJoinService implements IMemberService{
 
@@ -24,16 +24,15 @@ try {
 			String m_phone = request.getParameter("m_phone");
 			String m_email = request.getParameter("m_email");
 			
-			MembersDAO dao = MembersDAO.getinstance();
+			MemberDAO dao = MemberDAO.getinstance();
 			
-			MembersVO member = new MembersVO();
+			MemberVO member = new MemberVO();
 			member.setM_Name(m_name);
 			member.setM_Id(m_id);
 			member.setM_Pw(m_pw);
 			member.setDept_no(dept_no);
 			member.setM_Phone(m_phone);
 			member.setM_Email(m_email);
-			
 			dao.joinMember(member);
 			
 		

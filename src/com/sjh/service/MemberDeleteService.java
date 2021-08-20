@@ -5,7 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sjh.model.MembersDAO;
+import com.sjh.model.MemberDAO;
+
+
 
 
 
@@ -30,7 +32,7 @@ public class MemberDeleteService implements IMemberService{
 			String mId = request.getParameter("mId");
 
 			// DAO积己
-			MembersDAO dao = MembersDAO.getinstance();
+			MemberDAO dao = MemberDAO.getinstance();
 			// delete肺流俊 mId 持绢辑 角青
 			dao.DeleteMember(null, mId);
 		

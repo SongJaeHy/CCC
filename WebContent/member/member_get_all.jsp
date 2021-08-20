@@ -1,21 +1,21 @@
-<%@page import="com.sjh.model.MembersVO"%>
+<%@page import="com.sjh.model.MemberVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@page import="com.sjh.model.MembersDAO"%>
+<%@page import="com.sjh.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	// 로그인하지 않은 사용자 처리
-	String IdSession = (String)session.getAttribute("m_s");
+	String IdSession = (String)session.getAttribute("i_s");
 	if(IdSession == null){
 		response.sendRedirect("member_login_form.jsp");
 	}
 	
 	// DB에서 전체 사원 리스트를 가져옵니다.
 	// 다오 생성
-	MembersDAO dao = MembersDAO.getinstance();
-	ArrayList<MembersVO> memberList = dao.getAllMember();
+	MemberDAO dao = MemberDAO.getinstance();
+	ArrayList<MemberVO> memberList = dao.getAllMember();
 	
 	System.out.println(memberList);
 %>    
@@ -27,7 +27,7 @@
 </head>
 <body>
 	<h1>전체 사원 목록</h1>
-
+	
 	<table border="1">
 		<thead>
 			<tr>
@@ -39,12 +39,11 @@
 		<tbody>
 			<c:forEach var="member" items="<%= memberList%>">
 				<tr>
-					<td>${member.mId }</td>
-					<td>${member.mPw }</td>
-					<td>${member.mEmail }</td>
+					<td>${member.mid }</td>
+					<td>${member.mname }</td>
+					<td>${member.memail }</td>
 				</tr>
-			</c:forEach>
-				
+			</c:forEach>				
 	</tbody>
 	
 	</table>

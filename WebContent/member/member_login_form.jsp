@@ -1,27 +1,35 @@
-<%@page import="com.hgs.dept.model.DeptVO"%>
-<%@page import="com.sjh.model.MembersVO"%>
-<%@page import="com.sjh.model.MembersDAO"%>
+<%@page import="com.sjh.model.MemberVO"%>
+<%@page import="com.sjh.model.MemberDAO"%>
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+try{
 	request.setCharacterEncoding("utf-8");
 	response.setCharacterEncoding("utf-8");
 	
 	String m_id = request.getParameter("m_id");
 	String m_pw = request.getParameter("m_pw");
 	String m_name = request.getParameter("m_name");
-	Integer dept_no = (Integer)session.getAttribute("dept_no");
+	String strdept_no=request.getParameter("dept_no");
+	Integer dept_no = (Integer)session.getAttribute(strdept_no);
 	String m_phone = request.getParameter("m_phone");
 	String m_email = request.getParameter("m_email");
 	
-	MembersDAO dao = MembersDAO.getinstance();
+	MemberDAO dao = MemberDAO.getinstance();
 	
-	MembersVO member = new MembersVO();
+	MemberVO member = new MemberVO();
 	member.setM_Id(m_id);
-	
-	DeptVO dept = new DeptVO();
-	
-	dao.joinMember(member, dept);
+	member.setM_Pw(m_pw);
+	member.setM_Name(m_name);
+	member.setDept_no(dept_no);
+	member.setM_Phone(m_phone);
+	member.setM_Email(m_email);
+	dao.joinMember(member);
+}catch(Exception e){
+	e.printStackTrace();
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -48,20 +56,17 @@ der .c_logo:before{
 </style>
 <meta charset="UTF-8">
 <title>로그인</title>
-<script>
-    function submit() {
-        document.abcd.submit();        
-</script>
+
 </head>
 <body>
 	<div id = "header"></div>
 	<h1>
-		<a href="https://www.naver.com" class="p c_logo" id="log.naver">
+		<a href="https://www.nave.r.com" class="p c_logo" id="log.naver">
 		<span class="blian">CCS</span>
 		</a>
 	</h1>
 	
-	<form action="member_login_ok.jsp" method="post">
+	<form action="/ccs/login.do" method="post">
 	<table border="1">
 		<tr>
 			<td>아이디</td>

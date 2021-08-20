@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.sjh.service.IMemberService;
+import com.sjh.service.MemberDetailService;
 import com.sjh.service.MemberJoinService;
 import com.sjh.service.MemberLoginService;
 import com.sjh.service.MemberUpdateService;
@@ -23,7 +24,7 @@ import com.sjh.service.MemberUpdateService;
 /**
  * Servlet implementation class PattenServlet
  */
-@WebServlet("*.ccs")
+@WebServlet("*.do")
 public class PattenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -55,6 +56,7 @@ public class PattenServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doRequest(request, response);
 	}
 
 	/**
@@ -62,7 +64,7 @@ public class PattenServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request, response);
+		doRequest(request, response);
 	}
 	protected void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		IMemberService sv = null;
@@ -90,30 +92,49 @@ public class PattenServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		
-		if(uri.equals("/ccs/memberjoin.ccs")) {
+		if(uri.equals("/ccs/memberjoin.do")) {
 			sv = new MemberJoinService();
 			sv.execute(request, response);
 			ui="/member/member_login_form.jsp";
-		}else if(uri.equals("/ccs/update.do")){
-			
-		}else if(uri.equals("/ccs/updateok.do")) {
+		}else if(uri.equals("/ccs/login.do")) {
 			// 1. 서비스 객체 생성
 			sv = new MemberLoginService();
 			// 2. 서비스 메서드 생성
 			sv.execute(request, response);
-			// 3. 결과
-			String mId = request.getParameter("mId");
-			ui = "/member/member_login_form.jsp?mId=" + mId;
+			String result=(String)session.getAttribute("login");
+			System.out.println(result);
+			if(result != null&&result.equals("fail")) {
+				session.invalidate();
+				ui = "/member/member_login_form.jsp";
+			}else if(result.equals("success")) {
+				ui = "/member/member_login_ok.jsp";
+			}
+		}else if(uri.equals("/ccs/update.do")){
 			
+		}else if(uri.equals("/ccs/updateok.do")) {
+			sv = new MemberUpdateService();
+			sv.execute(request, response);
+			
+			String strmId = request.getParameter("mId");
+			ui = "/memberdetail.do?mId=" + strmId;
 		}else if(uri.equals("/ccs/delete.do")) {
 			
 		}else if(uri.equals("/ccs/memberdetail.do")) {
-			
+			sv = new MemberDetailService();
 			sv.execute(request, response);
 			
-			ui = "/member/member_login_form.jsp";
+			ui = "/member/member_get_all.jsp";
 		
-		}else {
+		}else if(uri.equals("/ccs/memberselect.do")) {
+			//sv = new MemberDetailService();
+			sv.execute(request, response);
+			
+			ui = "/member/member_get_all.jsp";
+		
+		}
+		
+		
+		else {
 			System.out.println("잘못된 패턴입니다.");
 		}
 		
