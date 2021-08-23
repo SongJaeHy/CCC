@@ -30,6 +30,11 @@
 <title>회원가입</title>
 </head>
 <script>
+function idCheck(){
+	alert("idCheck!");
+	
+	window.open("idCheck.jsp", "idwin", "witdh=400, height=150"); 
+}
 	function check_pw(){
 		
 		var pw = document.getElementById('mpw').value;
@@ -64,15 +69,15 @@
 </script>
 <body>
 	<h1>회원가입 창</h1>
-	<form action="/ccs/memberjoin.do"method="post">
+	<form action="/ccs/memberjoin.do"method="post" name="regForm">
 	<table>
 		<tr>
 			<td>아이디:</td>
-			<td><input type="text" name="m_id" id="m_id" placeholder="Id" required onclick = "idcheck()"></td>
+			<td><input type="text" name="m_id" id="m_id" placeholder="Id" required></td>
 			<td><input type="button" value="중복확인" onclick="idcheck()"><br/></td>
 		<tr>
 			<td>비밀번호:</td>
-			<td><input type="password" name="m_pw" id="mpw" onchange="check_pw()"><br/></td>
+			<td><input type="password" name="m_pw" id="mpw" onchange="check_pw()"placeholder="소문자+특수문자(숫자포함 6~16)"><br/></td>
 		</tr>
 		<tr>
 			<td>비밀번호 확인:</td>

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,12 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.sjh.service.IMemberService;
+import com.sjh.service.MemberDeleteService;
 import com.sjh.service.MemberDetailService;
 import com.sjh.service.MemberJoinService;
 import com.sjh.service.MemberListService;
 import com.sjh.service.MemberLoginService;
+import com.sjh.service.MemberLogoutService;
+import com.sjh.service.MemberPagingService;
 import com.sjh.service.MemberUpdateService;
-
 
 
 
@@ -28,32 +31,35 @@ import com.sjh.service.MemberUpdateService;
 @WebServlet("*.do")
 public class PattenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
     public PattenServlet() {
         super();
-        System.out.println("ÆĞÅÏÀÚ »ı¼º");
+        System.out.println("ìƒì„±ì ìƒì„±");
     }
 
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
+	@Override
 	public void init(ServletConfig config) throws ServletException {
-		System.out.println("ÆĞÅÏÀÚ ½ÃÀÛ");
+		System.out.println("ìƒì„±ì ì‹œì‘");
 	}
 
 	/**
 	 * @see Servlet#destroy()
 	 */
+	@Override
 	public void destroy() {
-		System.out.println("ÆĞÅÏ ¼Ò¸ê");
+		System.out.println("ìƒì„±ì ì†Œë©¸");
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -63,44 +69,45 @@ public class PattenServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		doRequest(request, response);
 	}
 	protected void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		IMemberService sv = null;
-		
-		// ÇØ´ç ·ÎÁ÷À» ½ÇÇÚ µÚ¿¡ ³Ñ¾î°¥ .jsp ÆÄÀÏ ÁöÁ¤
+
+		// í•´ë‹¹ ë¡œì§ì„ ì‹¤í•¸ ë’¤ì— ë„˜ì–´ê°ˆ .jsp íŒŒì¼ ì§€ì •
 		String ui = null;
-		
-		// ¼¼¼Ç ¾²´Â ¹ı
+
+		// ì„¸ì…˜ ì“°ëŠ” ë²•
 		HttpSession session = null;
 		session = request.getSession();
-		
-		// doget¿¡ ÀÖ´ø ¸ğµç ÄÚµå¸¦ °¡Á®¿É³ª´Ù.
-		// È®ÀåÀÚ ÆĞÅÏ¿¡¼­ È®ÀåÀÚ¸¦ Æ÷ÇÔÇÑ ÁÖ¼Ò°ªÀ» °¡Á®¿À±â À§ÇØ¼­
-		// ¾Æ·¡ ÄÚµå¸¦ »ç¿ëÇÕ´Ï´Ù.
-		String uri = request.getRequestURI();	
-		System.out.println("uri ÆĞÅÏ:" + uri);
-		
-		// ÄÜ¼ÖÀÌ ¾Æ´Ñ »ç¿ëÀÚ°¡ È®ÀÎÇÒ ¼ö ÀÖµµ·Ï .jsp È­¸é¿¡
-		// º¯¼ö¿¡ ´ã±ä ÀÚ·á¸¦ Âï´Â out.print(); »ç¿ëÀ» À§ÇÑ
-		// »çÀü ÁØºñ
+
+		// dogetì— ìˆë˜ ëª¨ë“  ì½”ë“œë¥¼ ê°€ì ¸ì˜µë‚˜ë‹¤.
+		// í™•ì¥ì íŒ¨í„´ì—ì„œ í™•ì¥ìë¥¼ í¬í•¨í•œ ì£¼ì†Œê°’ì„ ê°€ì ¸ì˜¤ê¸° ìœ„í•´ì„œ
+		// ì•„ë˜ ì½”ë“œë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤
+		String uri = request.getRequestURI();
+		System.out.println("uri íŒ¨í„´:" + uri);
+
+		// ì½˜ì†”ì´ ì•„ë‹Œ ì‚¬ìš©ìê°€ í™•ì¸í•  ìˆ˜ ìˆë„ë¡ .jsp í™”ë©´ì—
+		// ë³€ìˆ˜ì— ë‹´ê¸´ ìë£Œë¥¼ ì°ëŠ” out.print(); ì‚¬ìš©ì„ ìœ„í•œ
+		// ì‚¬ì „ ì¤€ë¹„
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		// jspÆäÀÌÁö°¡ htmlÇü½ÆÀ¸·Î ÀÌ·ïÁ® ÀÖÀ½À» ¾Ë·ÁÁÖ´Â ÄÚµå
+		// jspí˜ì´ì§€ê°€ htmlí˜•ì‹£ìœ¼ë¡œ ì´ë¤„ì ¸ ìˆìŒì„ ì•Œë ¤ì£¼ëŠ” ì½”ë“œ
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
-		
+
+
 		if(uri.equals("/ccs/memberjoin.do")) {
 			sv = new MemberJoinService();
 			sv.execute(request, response);
 			ui="/member/member_login_form.jsp";
 		}else if(uri.equals("/ccs/login.do")) {
-			// 1. ¼­ºñ½º °´Ã¼ »ı¼º
+			// 1. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 			sv = new MemberLoginService();
-			// 2. ¼­ºñ½º ¸Ş¼­µå »ı¼º
+			// 2. ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			sv.execute(request, response);
 			String result=(String)session.getAttribute("login");
 			System.out.println(result);
@@ -110,37 +117,51 @@ public class PattenServlet extends HttpServlet {
 			}else if(result.equals("success")) {
 				ui = "/member/member_login_ok.jsp";
 			}
-		}else if(uri.equals("/ccs/update.do")){
-			
+		}else if(uri.equals("/ccs/logout.do")) {
+			sv = new MemberLogoutService();
+			sv.execute(request, response);
+			ui="/member/member_login_form.jsp";
+
+		}
+		else if(uri.equals("/ccs/update.do")){
+			sv = new MemberDetailService();
+			sv.execute(request, response);
+			ui="/member/member_update_form.jsp";
 		}else if(uri.equals("/ccs/updateok.do")) {
 			sv = new MemberUpdateService();
 			sv.execute(request, response);
-			
+
 			String strmId = request.getParameter("mId");
 			ui = "/memberdetail.do?mId=" + strmId;
 		}else if(uri.equals("/ccs/delete.do")) {
-			
+			sv = new MemberDeleteService();
+			sv.execute(request, response);
+			ui = "/memberselect.do";
 		}else if(uri.equals("/ccs/memberdetail.do")) {
 			sv = new MemberListService();
 			sv.execute(request, response);
-			
+
 			ui = "/member/member_get_all.jsp";
-		
+
 		}else if(uri.equals("/ccs/memberselect.do")) {
 			//sv = new MemberDetailService();
+			//sv.execute(request, response);
+
+			//ui = "/member/member_get_all.jsp";
+			sv = new MemberPagingService();
 			sv.execute(request, response);
-			
+
 			ui = "/member/member_get_all.jsp";
-		
+
 		}
-		
-		
+
+
 		else {
-			System.out.println("Àß¸øµÈ ÆĞÅÏÀÔ´Ï´Ù.");
+			System.out.println("ì˜ëª»ëœ íŒ¨í„´ì…ë‹ˆë‹¤.");
 		}
-		
-		
-		
+
+
+
 		RequestDispatcher dp = request.getRequestDispatcher(ui);
 		dp.forward(request, response);
 	}

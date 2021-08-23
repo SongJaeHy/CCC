@@ -6,6 +6,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
+
 	request.setCharacterEncoding("utf-8");
 	response.setCharacterEncoding("utf-8");
 	// 로그인하지 않은 사용자 처리
@@ -47,7 +48,24 @@
 				</tr>
 			</c:forEach>				
 	</tbody>
-	
 	</table>
+	<c:if test="${pageDTO.hasBoaed() }">
+		<%--뒤로가기 버튼 --%>
+			<c:if test="${pageDTO.startPage > 5 }">
+				<a href="/ccs/memberselect.do?page=${pageDTO.startPage-5 }">
+					[prev]</a>
+			</c:if>
+			<c:forEach var ="pNo" begin="${pageDTO.startPage }"end="${pageDTO.endPage }">
+				<a href="/ccs/memberselect.do?page=${pNo }">[${pNo }]</a>
+			</c:forEach>
+		<%--다음 --%>
+			<c:if test="${pageDTO.endPage < pageDTO.totalPages }">
+				<a href="/css/memberselect.do?page=${pageDTO.startPage+10 }">
+				[next]</a>
+			</c:if>
+		</c:if>
+		<%--페이징 끝 --%>
+		<br/>
+		<a href="/ccs/logout.do">로그아웃</a>
 </body>
 </html>

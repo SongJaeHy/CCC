@@ -1,5 +1,5 @@
-<%@page import="com.sjh.model.MembersVO"%>
-<%@page import="com.sjh.model.MembersDAO"%>
+<%@page import="com.sjh.model.MemberVO"%>
+<%@page import="com.sjh.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -11,11 +11,11 @@
 	String m_name = request.getParameter("m_name");
 	String m_email = request.getParameter("m_email");
 	
-	MembersVO member = new MembersVO();
+	MemberVO member = new MemberVO();
 	
-	MembersDAO dao = MembersDAO.getinstance();
+	MemberDAO dao = MemberDAO.getinstance();
 	
-	int updateResultNum = dao.updateMember(member);
+	int updateResultNum = dao.UpdateMember(member);
 	
 	if(updateResultNum==0){
 		response.sendRedirect("member_update_fail.jsp");

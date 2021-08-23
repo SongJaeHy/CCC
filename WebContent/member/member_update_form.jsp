@@ -1,5 +1,32 @@
+<%@page import="com.sjh.model.MemberVO"%>
+<%@page import="com.sjh.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	// 1 세션을 통해 아이디를 가져옵니다.
+	//	 만약 로그인 상태가 아니면 로그인창으로 리다이렉트합니다.
+ 	String sessionId = (String)session.getAttribute("i_s");
+	if(sessionId == null){
+ 		response.sendRedirect("member_login_form.jsp");
+	}
+	// 2. dao를 통해 MemberVO를 가지고 와야 합니다.
+	MemberDAO dao = MemberDAO.getinstance();
+	MemberVO member = new MemberVO();
+	member.setM_Id(sessionId);
+	
+	
+	// 3. 들고온 MemberVO를 이용해 아래 html태그의 value속성에 표현식을 이용해
+	//		MemberVO의 아이디, 이름, 이메일을 기입하게 만들어줍니다.
+	MemberVO resultData = dao.getMemberInfo(member);
+	System.out.println("DB에서 가져온 데이터 :"+ resultData);
+	
+	// resultData내부의 데이터가 null인 경우는 조회가 실패한 경우이므로 로그인창으로 돌아가기
+	if(resultData.getM_Id() == null){
+		session.invalidate();
+		response.sendRedirect("member_login_form.jsp");
+	}
+	
+%>
 
 <!DOCTYPE html>
 <html>

@@ -1,5 +1,5 @@
-<%@page import="com.sjh.model.MembersVO"%>
-<%@page import="com.sjh.model.MembersDAO"%>
+<%@page import="com.sjh.model.MemberVO"%>
+<%@page import="com.sjh.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -13,9 +13,9 @@
 	String sessionId = (String)session.getAttribute("i_s");
 	
 	// 1.DAO를 생성하고 
-	MembersDAO dao = MembersDAO.getinstance();
+	MemberDAO dao = MemberDAO.getinstance();
 	// 2. MembersVO를 생성하되, spw, sessionId만 setter로 넣어주세요.
-	MembersVO member = new MembersVO();
+	MemberVO member = new MemberVO();
 	
 	member.setM_Pw(sessionId);
 	member.setM_Id(spw);

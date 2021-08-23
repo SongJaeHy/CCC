@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -14,7 +13,7 @@ import javax.sql.DataSource;
 
 public class MemberDAO {
 	private DataSource ds;
-	
+
 	private MemberDAO() {
 		try {
 			Context ct = new InitialContext();
@@ -24,25 +23,25 @@ public class MemberDAO {
 		}
 	}
 	private static MemberDAO dao = new MemberDAO();
-	
+
 	public static MemberDAO getinstance() {
 		if(dao==null) {
 			dao = new MemberDAO();
 		}
 		return dao;
 	}
-	// È¸¿ø°¡ÀÔ Ã³¸®ÇÏ´Â ·ÎÁ÷
+	// íšŒì›ê°€ì… í˜¸ì§
 	public void joinMember(MemberVO member) {
-		// DB¿¬µ¿À» À§ÇÑ Connector ¼³Á¤
-		// Connection °´Ã¼ »ı¼º
+		// DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Connector ï¿½ï¿½ï¿½ï¿½
+		// Connection ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = ds.getConnection();
-			
+
 			String sql = "INSERT INTO (m_id,m_pw,m_name,dept_no,m_phone,m_email)"
 					+ "VALUES(?,?,?,?,?,?)";
-			
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getM_Id());
 			pstmt.setString(2, member.getM_Pw());
@@ -51,7 +50,7 @@ public class MemberDAO {
 			pstmt.setString(5, member.getM_Phone());
 			pstmt.setString(6, member.getM_Email());
 			pstmt.executeUpdate();
-			
+
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -67,23 +66,23 @@ public class MemberDAO {
 			}
 		}
 	}// end joinMember
-	
-	// »ç¿ø ¼öÁ¤ ·ÎÁ÷
+
+	// ì‚¬ì› ìˆ˜ì • ë¡œì§
 	public int UpdateMember(MemberVO member) {
 		Connection con = null;
 		PreparedStatement pstmt =null;
-		
+
 		try {
 			con = ds.getConnection();
 			String sql = "UPDATE member SET m_pw=?, m_name=?, m_email=? WHERE m_id=?";
-			
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getM_Pw());
 			pstmt.setString(2, member.getM_Name());
 			pstmt.setString(3, member.getM_Email());
 			pstmt.setString(4, member.getM_Id());
 			pstmt.executeUpdate();
-			
+
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -100,22 +99,22 @@ public class MemberDAO {
 		}
 	return 1;
 	}// end UpdateMember
-	
-	// »ç¿ø »èÁ¦
+
+	// ì‚¬ì› ì‚­ì œ ë¡œì§
 	public int DeleteMember(MemberVO member, String dpw) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
 				if(member.getM_Pw().equals(dpw)) {
 			con = ds.getConnection();
 			String sql = "DELETE FROM m_pw WHERE m_id=?";
-			
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getM_Id());
-			
+
 			pstmt.executeUpdate();
-			
+
 				}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -133,18 +132,18 @@ public class MemberDAO {
 		}
 	return 0;
 	} // end DeleteMember
-	// »ç¿ø ·Î±×ÀÎ ·ÎÁ÷
+	// ì‚¬ì› ë¡œê·¸ì¸
 	public int login(String m_id, String m_pw) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		MemberVO userinfo = new MemberVO();
-		
+
 		String sql = "SELECT m_pw FROM member WHERE m_id=?";
 		try {
 			con = ds.getConnection();
-			
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, m_id);
 			userinfo.getM_Name();
@@ -175,21 +174,21 @@ public class MemberDAO {
 		}
 		return 0;
 	}// end login
-	// ¼öÁ¤·ÎÁ÷À» »ç¿ëÇÏ±â Àü ¼öÁ¤ÇÒ Å¸°Ù ¾ÆÀÌµğÀÇ Á¤º¸¸¦ ¾ò¾î¿Â´Ù.
+	// ìˆ˜ì • ë¡œì§ ì‚¬ìš©í•˜ê¸° ì „ ìˆ˜ì •í•  íƒ€ê²Ÿ ì•„ì´ë”” ì •ë³´ ì–»ì–´ì˜¤ê¸°.
 	public MemberVO getMemberInfo(MemberVO member) {
 		Connection con = null;
 		PreparedStatement pstmt =null;
 		ResultSet rs =null;
-		
+
 		MemberVO resultData = new MemberVO();
 		try {
 			con = ds.getConnection();
-			
+
 			String sql= "SELECT * FROM member WHERE m_id=?";
-			
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getM_Id());
-			
+
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				resultData.setM_Id("m_Id");
@@ -216,32 +215,32 @@ public class MemberDAO {
 		}
 		return resultData;
 	}
-	// ÀüÃ¼ »ç¿ø ¸ñ·Ï
+	// ì‚¬ì› ì „ì²´ ëª©ë¡
 	public ArrayList<MemberVO> getAllMember(){
 		ArrayList<MemberVO> memberList = new ArrayList<>();
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		String sql = "SELECT * FROM member ORDER BY m_id DESC";
 		try {
-			
+
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
-			
+
 			rs = pstmt.executeQuery();
-			
+
 			while(rs.next()) {
 				MemberVO member = new MemberVO();
-				
+
 				member.setM_Id(rs.getString("m_id"));
 				member.setM_Pw(rs.getString("m_pw"));
 				member.setM_Name(rs.getString("m_name"));
 				member.setDept_no(rs.getInt("dept_no"));
 				member.setM_Phone(rs.getString("m_phone"));
 				member.setM_Email(rs.getString("m_email"));
-				
+
 				memberList.add(member);
 			}
 		}catch(Exception e) {
@@ -263,30 +262,31 @@ public class MemberDAO {
 		}
 		return memberList;
 	} // end getallData
+	// ì‚¬ì› í•˜ë‚˜ì— ëŒ€í•œ ìƒì„¸ ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë¡œì§
 	public MemberVO getBoardDetail(String m_Id) {
-		// 
+		//
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		MemberVO member = new MemberVO();
-		
+
 		String sql = "SELECT * FROM member WHERE m_id=?";
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
-			
+
 			pstmt.setString(1, m_Id);
 			rs = pstmt.executeQuery();
-		
+
 		if(rs.next()) {
 			member.setM_Id(rs.getString("m_id"));
 			member.setM_Name(rs.getString("m_name"));
 			member.setDept_no(rs.getInt("dept_no"));
 			member.setM_Phone(rs.getString("m_phone"));
 			member.setM_Email(rs.getString("m_email"));
-			
+
 		};
-		
+
 	}catch(Exception e) {
 		e.printStackTrace();
 	}finally {
@@ -305,7 +305,125 @@ public class MemberDAO {
 		}
 	}
 		return member;
-		
+
 	}
+	// idì¤‘ë³µ ì²´í¬
+	public boolean idCheck(String m_Id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM member WHERE m_id=?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, m_Id);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				String id = rs.getString("id");
+				System.out.printf("%s:ì•„ì´ë””ì¡´ì¬!\n", m_Id);
+				return false;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con!=null && !con.isClosed()) {
+					con.close();
+				}
+				if(pstmt!=null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+				if(rs!=null && !rs.isClosed()) {
+					rs.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return true;
+	} //end idCheck
+	// í˜ì´ì§€ ë²ˆí˜¸ì— ë§ëŠ” ê²Œì‹œë¬¼ ê°€ì ¸ì˜¤ê¸°
+	public ArrayList<MemberVO> getPageList(int pageNum){
+		//
+		ArrayList<MemberVO> memberList = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		// ì¿¼ë¦¬ë¬¸
+		String sql = "SELECT * FROM member ORDER BY m_id DESC LIMIT ?, 5";
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setInt(1, pageNum);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				MemberVO member = new MemberVO();
+
+				member.setM_Id(rs.getString("m_id"));
+				member.setM_Name(rs.getString("m_name"));
+				member.setDept_no(rs.getInt("dept_no"));
+				member.setM_Phone(rs.getString("m_phone"));
+				member.setM_Email(rs.getString("m_email"));
+
+				memberList.add(member);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con!=null&&!con.isClosed()) {
+					con.close();
+				}
+				if(pstmt!=null&&!pstmt.isClosed()) {
+					pstmt.close();
+				}
+				if(rs!=null&&!rs.isClosed()) {
+					rs.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return memberList;
+	}// end getPageList
+	// í˜ì´ì§• ì²˜ë¦¬ë¥¼ ìœ„í•´ DBë‚´ ì „ì²´ ë°ì´í„° ê°œìˆ˜ ì•Œì•„ì˜¤ê¸°
+	public int getMemberCount() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int CountNum = 0;
+
+		String sql="SELECT COUNT(*) FROM member";
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				CountNum = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con!=null&&!con.isClosed()) {
+					con.close();
+				}
+				if(pstmt!=null&&!pstmt.isClosed()) {
+					pstmt.close();
+				}
+				if(rs!=null&&!rs.isClosed()) {
+					rs.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return CountNum;
+	}
+
 }
 
