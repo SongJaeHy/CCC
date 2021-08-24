@@ -14,17 +14,17 @@ public class MemberUpdateService implements IMemberService{
 		String mName = request.getParameter("m_name");
 		String mEmail = request.getParameter("m_email");
 		String mId = request.getParameter("m_id");
-		
+
 		MemberVO member = new MemberVO();
-		member.setM_Pw(mPw);
-		member.setM_Name(mName);
-		member.setM_Email(mEmail);
-		member.setM_Id(mId);
-		
+		member.setM_pw(mPw);
+		member.setM_name(mName);
+		member.setM_email(mEmail);
+		member.setM_id(mId);
+
 		MemberDAO dao = MemberDAO.getinstance();
-		
+
 		dao.UpdateMember(member);
-		
+
 	}
 
 }

@@ -1,92 +1,93 @@
 package com.sjh.model;
 
 public class MemberVO {
-	private String m_Name;
-	private int m_No;
-	private String m_Id;
-	private String m_Pw;
-	private int Dept_no;
-	private String m_Phone;
-	private String m_Email;
-	
+	private String m_name;
+	private int m_no;
+	private String m_id;
+	private String m_pw;
+	private int dept_no;
+	private String m_phone;
+	private String m_email;
+
 	public MemberVO() {
-		
+
 	}
 
-	public MemberVO(String m_Name, int m_No, String m_Id, String m_Pw, int dept_no, String m_Phone, String m_Email) {
+	public MemberVO(String m_name, int m_no, String m_id, String m_pw, int dept_no, String m_phone, String m_email) {
 		super();
-		this.m_Name = m_Name;
-		this.m_No = m_No;
-		this.m_Id = m_Id;
-		this.m_Pw = m_Pw;
-		Dept_no = dept_no;
-		this.m_Phone = m_Phone;
-		this.m_Email = m_Email;
+		this.m_name = m_name;
+		this.m_no = m_no;
+		this.m_id = m_id;
+		this.m_pw = m_pw;
+		this.dept_no = dept_no;
+		this.m_phone = m_phone;
+		this.m_email = m_email;
 	}
 
-	public String getM_Name() {
-		return m_Name;
+	public String getM_name() {
+		return m_name;
 	}
 
-	public void setM_Name(String m_Name) {
-		this.m_Name = m_Name;
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
 	}
 
-	public int getM_No() {
-		return m_No;
+	public int getM_no() {
+		return m_no;
 	}
 
-	public void setM_No(int m_No) {
-		this.m_No = m_No;
+	public void setM_no(int m_no) {
+		this.m_no = m_no;
 	}
 
-	public String getM_Id() {
-		return m_Id;
+	public String getM_id() {
+		return m_id;
 	}
 
-	public void setM_Id(String m_Id) {
-		this.m_Id = m_Id;
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
 	}
 
-	public String getM_Pw() {
-		return m_Pw;
+	public String getM_pw() {
+		return m_pw;
 	}
 
-	public void setM_Pw(String m_Pw) {
-		this.m_Pw = m_Pw;
+	public void setM_pw(String m_pw) {
+		this.m_pw = m_pw;
 	}
 
 	public int getDept_no() {
-		return Dept_no;
+		return dept_no;
 	}
 
 	public void setDept_no(int dept_no) {
-		Dept_no = dept_no;
+		this.dept_no = dept_no;
 	}
 
-	public String getM_Phone() {
-		return m_Phone;
+	public String getM_phone() {
+		return m_phone;
 	}
 
-	public void setM_Phone(String m_Phone) {
-		this.m_Phone = m_Phone;
+	public void setM_phone(String m_phone) {
+		this.m_phone = m_phone;
 	}
 
-	public String getM_Email() {
-		return m_Email;
+	public String getM_email() {
+		return m_email;
 	}
 
-	public void setM_Email(String m_Email) {
-		this.m_Email = m_Email;
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
 	}
 
 	@Override
 	public String toString() {
-		return "MemberVO [m_Name=" + m_Name + ", m_No=" + m_No + ", m_Id=" + m_Id + ", m_Pw=" + m_Pw + ", Dept_no="
-				+ Dept_no + ", m_Phone=" + m_Phone + ", m_Email=" + m_Email + "]";
+		return "MemberVO [m_name=" + m_name + ", m_no=" + m_no + ", m_id=" + m_id + ", m_pw=" + m_pw + ", dept_no="
+				+ dept_no + ", m_phone=" + m_phone + ", m_email=" + m_email + "]";
 	}
-	
-	
-	
-	
+
+
+
+
+
 }

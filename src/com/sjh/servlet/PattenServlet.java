@@ -17,7 +17,6 @@ import com.sjh.service.IMemberService;
 import com.sjh.service.MemberDeleteService;
 import com.sjh.service.MemberDetailService;
 import com.sjh.service.MemberJoinService;
-import com.sjh.service.MemberListService;
 import com.sjh.service.MemberLoginService;
 import com.sjh.service.MemberLogoutService;
 import com.sjh.service.MemberPagingService;
@@ -62,7 +61,7 @@ public class PattenServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		doRequest(request, response);
 	}
 
@@ -71,7 +70,6 @@ public class PattenServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		doRequest(request, response);
 	}
 	protected void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -105,9 +103,9 @@ public class PattenServlet extends HttpServlet {
 			sv.execute(request, response);
 			ui="/member/member_login_form.jsp";
 		}else if(uri.equals("/ccs/login.do")) {
-			// 1. ���� ��ü ����
+
 			sv = new MemberLoginService();
-			// 2. ���� �޼��� ����
+
 			sv.execute(request, response);
 			String result=(String)session.getAttribute("login");
 			System.out.println(result);
@@ -115,7 +113,7 @@ public class PattenServlet extends HttpServlet {
 				session.invalidate();
 				ui = "/member/member_login_form.jsp";
 			}else if(result.equals("success")) {
-				ui = "/member/member_login_ok.jsp";
+				ui = "member/member_login_ok.jsp";
 			}
 		}else if(uri.equals("/ccs/logout.do")) {
 			sv = new MemberLogoutService();
@@ -138,11 +136,15 @@ public class PattenServlet extends HttpServlet {
 			sv.execute(request, response);
 			ui = "/memberselect.do";
 		}else if(uri.equals("/ccs/memberdetail.do")) {
-			sv = new MemberListService();
+		//	sv = new MemberListService();
+		//	sv.execute(request, response);
+
+		//	ui = "/member/member_get_all.jsp";
+
+			sv = new MemberPagingService();
 			sv.execute(request, response);
 
 			ui = "/member/member_get_all.jsp";
-
 		}else if(uri.equals("/ccs/memberselect.do")) {
 			//sv = new MemberDetailService();
 			//sv.execute(request, response);

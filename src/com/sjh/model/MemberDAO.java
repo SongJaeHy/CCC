@@ -30,25 +30,25 @@ public class MemberDAO {
 		}
 		return dao;
 	}
-	// 회원가입 호직
+	// 회원가입 로직
 	public void joinMember(MemberVO member) {
-		// DB������ ���� Connector ����
-		// Connection ��ü ����
+		// DB연결
+		// Connection 객체 생성
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = ds.getConnection();
 
-			String sql = "INSERT INTO (m_id,m_pw,m_name,dept_no,m_phone,m_email)"
-					+ "VALUES(?,?,?,?,?,?)";
+			String sql = "INSERT INTO member(m_id,m_pw,m_name,dept_no,m_phone,m_email) VALUES (?,?,?,?,?,?)";
 
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member.getM_Id());
-			pstmt.setString(2, member.getM_Pw());
-			pstmt.setString(3, member.getM_Name());
+			pstmt.setString(1, member.getM_id());
+			pstmt.setString(2, member.getM_pw());
+			pstmt.setString(3, member.getM_name());
 			pstmt.setInt(4, member.getDept_no());
-			pstmt.setString(5, member.getM_Phone());
-			pstmt.setString(6, member.getM_Email());
+			pstmt.setString(5, member.getM_phone());
+			pstmt.setString(6, member.getM_email());
+
 			pstmt.executeUpdate();
 
 		}catch(Exception e) {
@@ -77,10 +77,10 @@ public class MemberDAO {
 			String sql = "UPDATE member SET m_pw=?, m_name=?, m_email=? WHERE m_id=?";
 
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member.getM_Pw());
-			pstmt.setString(2, member.getM_Name());
-			pstmt.setString(3, member.getM_Email());
-			pstmt.setString(4, member.getM_Id());
+			pstmt.setString(1, member.getM_pw());
+			pstmt.setString(2, member.getM_name());
+			pstmt.setString(3, member.getM_email());
+			pstmt.setString(4, member.getM_id());
 			pstmt.executeUpdate();
 
 		}catch(Exception e) {
@@ -106,16 +106,15 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 
 		try {
-				if(member.getM_Pw().equals(dpw)) {
+				if(member.getM_pw().equals(dpw)) {
 			con = ds.getConnection();
 			String sql = "DELETE FROM m_pw WHERE m_id=?";
 
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member.getM_Id());
+			pstmt.setString(1, member.getM_id());
 
 			pstmt.executeUpdate();
-
-				}
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -146,7 +145,7 @@ public class MemberDAO {
 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, m_id);
-			userinfo.getM_Name();
+			userinfo.getM_name();
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				if(rs.getString(1).equals(m_pw)) {
@@ -187,14 +186,14 @@ public class MemberDAO {
 			String sql= "SELECT * FROM member WHERE m_id=?";
 
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member.getM_Id());
+			pstmt.setString(1, member.getM_id());
 
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				resultData.setM_Id("m_Id");
-				resultData.setM_Pw("m_PW");
-				resultData.setM_Email("m_Email");
-				resultData.setM_Phone("m_Phone");
+				resultData.setM_id("m_Id");
+				resultData.setM_pw("m_PW");
+				resultData.setM_email("m_Email");
+				resultData.setM_phone("m_Phone");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -234,12 +233,12 @@ public class MemberDAO {
 			while(rs.next()) {
 				MemberVO member = new MemberVO();
 
-				member.setM_Id(rs.getString("m_id"));
-				member.setM_Pw(rs.getString("m_pw"));
-				member.setM_Name(rs.getString("m_name"));
+				member.setM_id(rs.getString("m_id"));
+				member.setM_pw(rs.getString("m_pw"));
+				member.setM_name(rs.getString("m_name"));
 				member.setDept_no(rs.getInt("dept_no"));
-				member.setM_Phone(rs.getString("m_phone"));
-				member.setM_Email(rs.getString("m_email"));
+				member.setM_phone(rs.getString("m_phone"));
+				member.setM_email(rs.getString("m_email"));
 
 				memberList.add(member);
 			}
@@ -279,11 +278,11 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 
 		if(rs.next()) {
-			member.setM_Id(rs.getString("m_id"));
-			member.setM_Name(rs.getString("m_name"));
+			member.setM_id(rs.getString("m_id"));
+			member.setM_name(rs.getString("m_name"));
 			member.setDept_no(rs.getInt("dept_no"));
-			member.setM_Phone(rs.getString("m_phone"));
-			member.setM_Email(rs.getString("m_email"));
+			member.setM_phone(rs.getString("m_phone"));
+			member.setM_email(rs.getString("m_email"));
 
 		};
 
@@ -362,11 +361,11 @@ public class MemberDAO {
 			while(rs.next()) {
 				MemberVO member = new MemberVO();
 
-				member.setM_Id(rs.getString("m_id"));
-				member.setM_Name(rs.getString("m_name"));
+				member.setM_id(rs.getString("m_id"));
+				member.setM_name(rs.getString("m_name"));
 				member.setDept_no(rs.getInt("dept_no"));
-				member.setM_Phone(rs.getString("m_phone"));
-				member.setM_Email(rs.getString("m_email"));
+				member.setM_phone(rs.getString("m_phone"));
+				member.setM_email(rs.getString("m_email"));
 
 				memberList.add(member);
 			}

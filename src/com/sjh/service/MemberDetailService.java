@@ -20,8 +20,6 @@ public class MemberDetailService implements IMemberService{
 
 		if (idSession == null) {
 			try {
-				// ¼­ºñ½º ³»ºÎ¿¡¼­ Æ÷¿öµùÀ» ½ÃÅ°¸é
-				// ¸®´ÙÀÌ·ºÆ®°¡ ¾Æ´Ï±â ¶§¹®¿¡ ½ÇÇàµÊ
 				String ui = "/member/member_login_form.jsp";
 				RequestDispatcher dp = request.getRequestDispatcher(ui);
 				dp.forward(request, response);
@@ -29,14 +27,14 @@ public class MemberDetailService implements IMemberService{
 				e.printStackTrace();
 			}
 		} else {
-			// url¿¡ ¹¯¾î¿Â ±Û ¹øÈ£¸¦ getParameter¸¦ ÀÌ¿ëÇØ ¾ò½À´Ï´Ù.
+
 			String m_Id = request.getParameter("m_id");
-	// DAO¸¦ »ı¼ºÇÕ´Ï´Ù.
+	// DAO ìƒì„±
 			MemberDAO dao = MemberDAO.getinstance();
-			
+
 			MemberVO member = dao.getBoardDetail(m_Id);
 
-			// Æ÷¿öµùÀ» À§ÇØ setAttribute()·Î µ¥ÀÌÅÍ¸¦ ½Ç¾îÁİ´Ï´Ù.
+
 			request.setAttribute("member", member);
 		}
 	}

@@ -4,24 +4,7 @@
 <%@page import="com.sjh.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-
-	request.setCharacterEncoding("utf-8");
-	response.setCharacterEncoding("utf-8");
-	// 로그인하지 않은 사용자 처리
-	String IdSession = (String)session.getAttribute("i_s");
-	if(IdSession == null){
-		response.sendRedirect("member_login_form.jsp");
-	}
-	
-	// DB에서 전체 사원 리스트를 가져옵니다.
-	// 다오 생성
-	MemberDAO dao = MemberDAO.getinstance();
-	ArrayList<MemberVO> memberList = dao.getAllMember();
-	
-	System.out.println(memberList);
-%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,37 +17,50 @@
 	<table border="1">
 		<thead>
 			<tr>
+				<th>사원 부서번호</th>
 				<th>사원 아이디</th>
 				<th>사원 이름</th>
 				<th>사원 이메일</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="member" items="<%= memberList%>">
+			<c:forEach var="member" items="${memberList }">
 				<tr>
-					<td>${member.m_Id}</td>
-					<td>${member.m_Pw}</td>
-					<td>${member.m_Email }</td>
+					<td>${member.dept_no}</td>
+					<td>${member.m_id}</td>
+					<td>${member.m_name}</td>
+					<td>${member.m_email }</td>
 				</tr>
 			</c:forEach>				
 	</tbody>
 	</table>
-	<c:if test="${pageDTO.hasBoaed() }">
-		<%--뒤로가기 버튼 --%>
-			<c:if test="${pageDTO.startPage > 5 }">
-				<a href="/ccs/memberselect.do?page=${pageDTO.startPage-5 }">
-					[prev]</a>
-			</c:if>
-			<c:forEach var ="pNo" begin="${pageDTO.startPage }"end="${pageDTO.endPage }">
-				<a href="/ccs/memberselect.do?page=${pNo }">[${pNo }]</a>
-			</c:forEach>
-		<%--다음 --%>
-			<c:if test="${pageDTO.endPage < pageDTO.totalPages }">
-				<a href="/css/memberselect.do?page=${pageDTO.startPage+10 }">
-				[next]</a>
-			</c:if>
+	<c:if test="${pageDTO.hasMember()}">
+	<ul class="pagination">
+		<%-- 이전 --%>
+			<c:if test="${pageDTO.startPage > 10}" >
+			<li class="page-item"><a class="page-link" href="/ccs/memberselect.do?page=${pageDTO.startPage -10}">«
+				«
+			</a></li>
+				
+			
 		</c:if>
-		<%--페이징 끝 --%>
+		
+		<%-- 페이지 번호 10개 묶음을 깔아주는 부분 --%>
+		<c:forEach var="pNo" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
+			<li class="page-item"><a class="page-link" href="/ccs/memberselect.do?page=${pNo }">1
+			${pNo }
+			</a></li>
+			
+		</c:forEach>
+		
+		<%-- 다음으로 가기 버튼을 표시할지 말지 결정하는 부분 --%>
+		<c:if test="${pageDTO.endPage < pageDTO.totalPages }">
+		    <li class="page-item"><a class="page-link" href="/ccs/memberselect.do?page=${pageDTO.startPage+10 }">»
+				»
+		    </a></li>
+		</c:if>
+		</ul>
+		</c:if>
 		<br/>
 		<a href="/ccs/logout.do">로그아웃</a>
 </body>

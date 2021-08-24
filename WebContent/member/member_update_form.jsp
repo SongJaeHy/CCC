@@ -12,7 +12,7 @@
 	// 2. dao를 통해 MemberVO를 가지고 와야 합니다.
 	MemberDAO dao = MemberDAO.getinstance();
 	MemberVO member = new MemberVO();
-	member.setM_Id(sessionId);
+	member.setM_id(sessionId);
 	
 	
 	// 3. 들고온 MemberVO를 이용해 아래 html태그의 value속성에 표현식을 이용해
@@ -21,7 +21,7 @@
 	System.out.println("DB에서 가져온 데이터 :"+ resultData);
 	
 	// resultData내부의 데이터가 null인 경우는 조회가 실패한 경우이므로 로그인창으로 돌아가기
-	if(resultData.getM_Id() == null){
+	if(resultData.getM_id() == null){
 		session.invalidate();
 		response.sendRedirect("member_login_form.jsp");
 	}
@@ -33,32 +33,33 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
 <body>
 	<h1>사원 정보 수정</h1>
 	
-	<form action="member_update_ok.jsp" method="post">
-	<table>
+	<form action="/ccs/update.do" method="post">
+	<table class="table">
 		<tr>
 			<td>아이디</td>
-			<td><input type="text" name="mid" id="m_id" placeholder="아이디" readonly required><br/></td>
+			<td><input type="text" name="mid" id="m_id" placeholder="아이디" readonly required value="<%= resultData.getM_id() %>" class="form-control" disabled><br/></td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
-			<td><input type="password" name="mpw" id="m_pw" placeholder="비밀번호"><br/></td>
+			<td><input type="password" name="mpw" id="m_pw" placeholder="비밀번호" class="form-control"><br/></td>
 		</tr>
 		<tr>
 			<td>이메일</td>
-			<td><input type="email" name="memail" id="m_email" placeholder="이메일"required><br/></td>
+			<td><input type="email" name="memail" id="m_email" placeholder="이메일"required value="<%= resultData.getM_email() %>" class="form-control"><br/></td>
 		</tr>
 		<tr>
 			<td>전화번호</td>
-			<td><input type="tel" name="mphone" id="m_phone" placeholder="전화번호" 
-		value="000-0000-0000" maxlength="13"required><br/></td>
+			<td><input type="tel" name="mphone" id="m_phone"  
+		placeholder="000-0000-0000" maxlength="13"required class="form-control"><br/></td>
 		</tr>
 		<tr>
-			<td><input type="submit" value="사원정보 수정하기"></td>
-			<td><input type="reset" value="초기화"></td>
+			<td><input type="submit" value="사원정보 수정하기" class="btn btn-success"></td>
+			<td><input type="reset" value="초기화" class= "btn btn-danger"></td>
 		</tr>
 	
 		</table>

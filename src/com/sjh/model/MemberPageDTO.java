@@ -2,39 +2,40 @@ package com.sjh.model;
 import java.util.ArrayList;
 //import java.util.List;
 public class MemberPageDTO {
-	private int total;  // �쟾泥� �궗�썝 媛쒖닔
-	private int currentPage; // �쁽�옱 蹂닿퀬 �엳�뒗 �럹�엸
+	private int total;  // �전체
+	private int currentPage; // 현재보고있는페이지
 	private ArrayList<MemberVO> memberList;
-	private int totalPages; // �쟾泥� �럹�씠吏� 媛쒖닔
-	private int startPage; // �떆�옉 �럹�씠吏� 踰덊샇
-	private int endPage; // �쓠 �럹�씠吏� 踰덊샇
-	
-	// �깮�꽦�옄�뒗 �쟾泥� �궗�썝 媛쒖닔, �쁽�옱 �럹�씠吏�, �럹�씠吏� �맂 湲� 紐⑸줉�쓣 諛쏆븘�꽌 媛�怨듯빐
-	// �굹癒몄� �젙蹂대�� �뼸�뒿�땲�떎.
+	private int totalPages; // 전체
+	private int startPage; // 시작
+	private int endPage; // 끝
+
+
 	public MemberPageDTO(int total, int currentPage,ArrayList<MemberVO> memberList) {
 		this.total = total;
 		this.currentPage = currentPage;
 		this.memberList = memberList;
-		
+		// 아래부터 위 3개를 토대로 가공해서 나머지 변수를 채웁니다.
+		// 글이 없는 경우 페이지 및 버튼 자체가 필요없음
 		if(total == 0) {
 			this.totalPages=0;
 			this.startPage =0;
 			this.endPage =0;
 		}else {
-		this.totalPages = total/5;
+		// 게시글 총 개수를 이용해 전체 페이지 개수부터 구하기
+		this.totalPages = total/10;
 		if(this.total % 5 >0) {
-			// 留뚯빟 �굹�댋�쓣�븣 5媛몃줈 �뵳�뜙�뼱吏�吏� �븡�쑝硫� 
-			// 留덉�留됱뿉 �럹�씠吏�瑜� �븯�굹 �뜑 異붽��븿
+			// 만약 나눴을때 5개로 딱떨어지지 않으면
+			// 마지막에 페이지를 하나 더 추가해야 함
 			this.totalPages += 1;
 		}
-		// �쁽�옱 蹂닿퀬 �엳�뒗 �럹�씠吏� 洹몃９ �떆�옉 踰덊샇 援ы븯湲�
-		int moVal = this.currentPage % 5;
-		this.startPage = this.currentPage/ 5 * 5+1;
-		
+		// 현재 보고 있는 페이지 그룹 시작 번호
+		int moVal = this.currentPage % 10;
+		this.startPage = this.currentPage/ 10 * 10+1;
+
 		if(moVal ==0) {
-			this.startPage -= 5;
+			this.startPage -= 10;
 		}
-		// �빐�떦 �럹�씠吏� 洹몃９ �걹 踰덊샇
+		// 끝 페이지 보기 위한 곳
 		endPage = startPage + (10-1);
 		if(endPage>totalPages) {
 			endPage = totalPages;
@@ -42,7 +43,7 @@ public class MemberPageDTO {
 	}// end constructor
 	}
 	public int getTotal() {
-		return total; 
+		return total;
 	}
 	public boolean hasNoMember() {
 		return total ==0;
@@ -62,5 +63,5 @@ public class MemberPageDTO {
 	public int getEndPage() {
 		return endPage;
 	}
-	
+
 }

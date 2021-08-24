@@ -24,8 +24,8 @@
   		
   		// 2. dao로 로그인 검사
 		MemberVO member = new MemberVO();
-		member.setM_Id("m_Id");
-		member.setM_Pw("m_Pw");
+		member.setM_id("m_id");
+		member.setM_pw("m_pw");
 		
 		int loginResultNum = dao.login(m_id, m_pw);
 		
@@ -47,8 +47,8 @@
 <body>
 	<%=m_id %>님, 환영합니다.
 	<h1>로그인이 완료되었습니다.</h1>
-	<a href="member_logout.jsp">로그아웃하기</a><br/>
-	<a href="member_berinfo.jsp">사원 정보 보기</a>
-	<a href="/ccs/memberselete.do">사원 전체 목록</a>
+	<a href="member/member_logout.jsp">로그아웃하기</a><br/>
+	<a href="member/member_berinfo.jsp">사원 정보</a><br/>
+	<a href="/ccs/memberdetail.do">전체 사원 리스트</a>
 </body>
 </html>
