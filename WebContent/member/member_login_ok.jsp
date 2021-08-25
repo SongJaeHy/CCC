@@ -47,8 +47,8 @@
 <body>
 	<%=m_id %>님, 환영합니다.
 	<h1>로그인이 완료되었습니다.</h1>
-	<a href="member/member_logout.jsp">로그아웃하기</a><br/>
-	<a href="member/member_berinfo.jsp">사원 정보</a><br/>
-	<a href="/ccs/memberdetail.do">전체 사원 리스트</a>
+	<a href="member/member_logout.jsp" class="btn btn-danger" role="button">로그아웃하기</a><br/>
+	<a href="member/member_berinfo.jsp" class="btn btn-info" role="button">사원 정보</a><br/>
+	<a href="/ccs/memberdetail.do" class="btn btn-primary" role="button">전체 사원 리스트</a>
 </body>
 </html>

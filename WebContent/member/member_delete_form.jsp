@@ -21,7 +21,7 @@
 	<form action="/ccs/delete.do" method="post">
 	비밀번호를 한 번 더 입력하세요.<br/>
 	삭제 진행 후에는 되돌릴 수 없으니 주의하세요.<br/>
-	<table border="1">
+	<table class="table">
 		<tr>
 			<td>비밀번호</td>
 			<td><input type="password" name="mpw" id="m_pw" placeholder="삭제할 사원 비밀번호" class="form-control"><br/></td>

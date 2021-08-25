@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
 <body>
 	<h1>전체 사원 목록</h1>
@@ -34,28 +35,27 @@
 			</c:forEach>				
 	</tbody>
 	</table>
+	
 	<c:if test="${pageDTO.hasMember()}">
 	<ul class="pagination">
 		<%-- 이전 --%>
-			<c:if test="${pageDTO.startPage > 10}" >
-			<li class="page-item"><a class="page-link" href="/ccs/memberselect.do?page=${pageDTO.startPage -10}">«
+		<c:if test="${pageDTO.startPage > 10}" >
+			<li class="page-item"><a class="page-link" href="/ccs/memberselect.do?page=${pageDTO.startPage -10}">
 				«
 			</a></li>
-				
-			
 		</c:if>
 		
 		<%-- 페이지 번호 10개 묶음을 깔아주는 부분 --%>
 		<c:forEach var="pNo" begin="${pageDTO.startPage }" end="${pageDTO.endPage }">
-			<li class="page-item"><a class="page-link" href="/ccs/memberselect.do?page=${pNo }">1
+			<li class="page-item"><a class="page-link" href="/ccs/memberselect.do?page=${pNo }">
 			${pNo }
 			</a></li>
 			
 		</c:forEach>
-		
+	
 		<%-- 다음으로 가기 버튼을 표시할지 말지 결정하는 부분 --%>
 		<c:if test="${pageDTO.endPage < pageDTO.totalPages }">
-		    <li class="page-item"><a class="page-link" href="/ccs/memberselect.do?page=${pageDTO.startPage+10 }">»
+		    <li class="page-item"><a class="page-link" href="/ccs/memberselect.do?page=${pageDTO.startPage+10 }">
 				»
 		    </a></li>
 		</c:if>
