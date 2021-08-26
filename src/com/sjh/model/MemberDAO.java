@@ -14,6 +14,13 @@ import javax.sql.DataSource;
 public class MemberDAO {
 	private DataSource ds;
 
+	private static final int LOGIN_SUCCESS = 1;
+	private static final int LOGIN_FAIL = 0;
+	private static final int DELETE_SUCCESS = 1;
+	private static final int DELETE_FAIL = 0;
+	private static final int UPDATE_SUCCESS = 1;
+	private static final int UPDATE_FAIL = 0;
+
 	private MemberDAO() {
 		try {
 			Context ct = new InitialContext();
@@ -97,7 +104,7 @@ public class MemberDAO {
 				e.printStackTrace();
 			}
 		}
-	return 1;
+	return UPDATE_SUCCESS;
 	}// end UpdateMember
 
 	// 사원 삭제 로직
@@ -129,9 +136,9 @@ public class MemberDAO {
 				e.printStackTrace();
 			}
 		}
-	return 0;
+	return DELETE_FAIL;
 	} // end DeleteMember
-	// 사원 로그인
+	// 사원 로그인 로직
 	public int login(String m_id, String m_pw) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -149,9 +156,9 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				if(rs.getString(1).equals(m_pw)) {
-					return 1;
+					return LOGIN_SUCCESS;
 				}else {
-					return 0;
+					return LOGIN_FAIL;
 				}
 			}
 		}catch(Exception e) {
@@ -173,6 +180,7 @@ public class MemberDAO {
 		}
 		return 0;
 	}// end login
+	// getMemberInfo
 	// 수정 로직 사용하기 전 수정할 타겟 아이디 정보 얻어오기.
 	public MemberVO getMemberInfo(MemberVO member) {
 		Connection con = null;
@@ -213,7 +221,7 @@ public class MemberDAO {
 			}
 		}
 		return resultData;
-	}
+	} // getMemberInfo
 	// 사원 전체 목록
 	public ArrayList<MemberVO> getAllMember(){
 		ArrayList<MemberVO> memberList = new ArrayList<>();
@@ -260,9 +268,9 @@ public class MemberDAO {
 			}
 		}
 		return memberList;
-	} // end getallData
-	// 사원 하나에 대한 상세 정보를 가져오는 로직
-	public MemberVO getBoardDetail(String m_Id) {
+	} // end getAllMember
+	// 사원 아이디 하나에 대한 상세 정보를 가져오는 로직
+	public MemberVO getMemberDetail(String m_Id) {
 		//
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -305,8 +313,8 @@ public class MemberDAO {
 	}
 		return member;
 
-	}
-	// 페이지 번호에 맏는 게시물 가져오기
+	}//end getMemberDetail
+	// 페이지 번호에 맞는 게시물 가져오기
 	public ArrayList<MemberVO> getPageList(int pageNum){
 		//
 		ArrayList<MemberVO> memberList = new ArrayList<>();
@@ -387,7 +395,7 @@ public class MemberDAO {
 			}
 		}
 		return CountNum;
-	}
+	}//end getMemberCount
 
 }
 

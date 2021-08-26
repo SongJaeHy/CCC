@@ -32,7 +32,7 @@ public class MemberDetailService implements IMemberService{
 	// DAO 생성
 			MemberDAO dao = MemberDAO.getinstance();
 
-			MemberVO member = dao.getBoardDetail(m_Id);
+			MemberVO member = dao.getMemberDetail(m_Id);
 
 
 			request.setAttribute("member", member);

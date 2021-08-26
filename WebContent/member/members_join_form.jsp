@@ -51,7 +51,7 @@ h1{font:12px;}
 <meta charset="UTF-8">
 <title>회원가입</title>
 </head>
-<script>
+<script>// 비밀번호는 javascript를 활용
 	function check_pw(){
 		
 		var pw = document.getElementById('mpw').value;
