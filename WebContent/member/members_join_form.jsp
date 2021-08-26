@@ -52,11 +52,6 @@ h1{font:12px;}
 <title>회원가입</title>
 </head>
 <script>
-function idCheck(){
-	alert("idCheck!");
-	
-	window.open("idCheck.jsp", "idwin", "witdh=400, height=150"); 
-}
 	function check_pw(){
 		
 		var pw = document.getElementById('mpw').value;
@@ -101,31 +96,30 @@ function idCheck(){
 		<tr>
 			<td><h3 class="text-success">아이디:</h3></td>
 			<td><input type="text" name="m_id" id="m_id" placeholder="Id" class="form-control"required></td>
-			<td><input type="button" value="중복확인" onclick="idcheck()"><br/></td>
+			<td><input type="button" value="중복확인"><br/></td>
 		<tr>
 			<td><h3 class="text-primary">비밀번호:</h3></td>
 			<td><input type="password" name="m_pw" id="mpw" onchange="check_pw()"placeholder="소문자+특수문자(숫자포함 6~16)"><br/></td>
 		</tr>
-		
 		<tr>
 			<td><h3 class="text-primary">비밀번호 확인:</h3></td>
 			<td><input type="password" name="m_pw1" id="repw" onchange="check_pw()">&nbsp;<span id="check"></span><br/></td>
 		</tr>
 		<tr>
-			<td><h4 class="text-info">이름:</h4></td>
-			<td><input type="text" name="m_name" placeholder="이름"><br/></td>
+			<td><h3 class="text-info">이름:</h3></td>
+			<td><input type="text" name="m_name" placeholder="이름" class="form-contorl"><br/></td>
 		</tr>
 		<tr>
-			<td><h4 class="text-outline-primary">부서번호:</h4></td>
+			<td><h3 class="text-outline-primary">부서번호:</h3></td>
 			<td><input type="text" name="dept_no" id="dept_no" placeholder="부서번호" maxlength=6 class="form-control"><br/></td>
 		</tr>
 		<tr>
-			<td><h4 class="text-info">핸드폰번호:</h4></td>
+			<td><h3 class="text-info">핸드폰번호:</h3></td>
 			<td><input type="tel" name="m_phone" id="m_phone" value="000-0000-0000" maxlength=13 class="form-control"><br/></td>
 		</tr>
 		<tr>
-			<td><h4 class="text-info">이메일:</h4></td>
-			<td><input type="email" name="m_email" id="m_email" placeholder="이메일"><br/></td>
+			<td><h3 class="text-info">이메일:</h3></td>
+			<td><input type="email" name="m_email" id="m_email" placeholder="이메일" class="form-control"><br/></td>
 		</tr>	
 		
 		<tr>

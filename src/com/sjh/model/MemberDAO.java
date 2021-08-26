@@ -306,41 +306,6 @@ public class MemberDAO {
 		return member;
 
 	}
-	// id중복 체크
-	public boolean idCheck(String m_Id) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = "SELECT * FROM member WHERE m_id=?";
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, m_Id);
-			rs = pstmt.executeQuery();
-
-			while(rs.next()) {
-				String id = rs.getString("id");
-				System.out.printf("%s:아이디존재!\n", m_Id);
-				return false;
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(con!=null && !con.isClosed()) {
-					con.close();
-				}
-				if(pstmt!=null && !pstmt.isClosed()) {
-					pstmt.close();
-				}
-				if(rs!=null && !rs.isClosed()) {
-					rs.close();
-				}
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return true;
-	} //end idCheck
 	// 페이지 번호에 맏는 게시물 가져오기
 	public ArrayList<MemberVO> getPageList(int pageNum){
 		//

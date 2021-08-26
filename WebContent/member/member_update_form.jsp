@@ -2,7 +2,7 @@
 <%@page import="com.sjh.model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -19,20 +19,20 @@
 		<tr>
 			<td><h3 class="text-info">아이디</h3></td>
 			<td><input type="text" name="m_id" id="m_id" placeholder="아이디" readonly required 
-			class="form-control" disabled>${member.mId }<br/></td>
+			class="form-control" disabled>${member.m_id }<br/></td>
 		</tr>
 		<tr>
 			<td><h4 class="text-primary">비밀번호</h4></td>
-			<td><input type="password" name="m_pw" id="m_pw" placeholder="비밀번호" class="form-control">${member.mPw }<br/></td>
+			<td><input type="password" name="m_pw" id="m_pw" placeholder="비밀번호" class="form-control">${member.m_pw }<br/></td>
 		</tr>
 		<tr>
 			<td><h3 class="text-info">이메일</h3></td>
-			<td><input type="email" name="m_email" id="m_email" placeholder="이메일"required class="form-control">${memeber.mEmail }<br/></td>
+			<td><input type="email" name="m_email" id="m_email" placeholder="이메일"required class="form-control">${memeber.m_email }<br/></td>
 		</tr>
 		<tr>
 			<td><h3 class="text-info">전화번호</h3></td>
 			<td><input type="tel" name="m_phone" id="m_phone"  
-		placeholder="000-0000-0000" maxlength="13"required class="form-control">${member.mPhone}<br/></td>
+		placeholder="000-0000-0000" maxlength="13"required class="form-control">${member.m_phone}<br/></td>
 		</tr>
 		<tr>
 			<td><input type="submit" value="사원정보 수정하기" class="btn btn-success"></td>

@@ -15,7 +15,7 @@
 <body>
 	<h1>전체 사원 목록</h1>
 	
-	<table border="1">
+	<table class="table table-bordered">
 		<thead>
 			<tr>
 				<th>사원 부서번호</th>
